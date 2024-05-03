@@ -39,12 +39,6 @@ class Protocol:
     def is_silent(self):
         return int(time.time()) - self.recv_time > MAX_SILENCE
 
-    def update_gpi(self):
-        self.adaptor.send_gpi_state()
-
-    def update_gpo(self):
-        self.adaptor.send_gpo_state()
-
 
 class Factory:
     addr = None
@@ -103,9 +97,9 @@ def main_loop(factory):
 
                 if mask & selectors.EVENT_WRITE:
                     if factory.dev.update_gpi_flag:
-                        key.data.pcol.update_gpi()
+                        key.data.pcol.adaptor.send_gpi_state()
                     if factory.dev.update_gpo_flag:
-                        key.data.pcol.update_gpo()
+                        key.data.pcol.adaptor.send_gpo_state()
 
             factory.dev.update_gpi_flag = False
             factory.dev.update_gpo_flag = False
