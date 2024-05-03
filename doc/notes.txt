@@ -1,0 +1,29 @@
+KR-118RGE
+
+LES ASCII Protocol
+
+TCP
+Port: 8020
+
+----Get GPI Request----
+GPI_GET\r\n
+------Response---------
+GPI=00011111\r\n
+0-4 bits(GPI8-GPI4) - short
+5-7 bits(GPI3-GPI1) - open
+
+----Get GPO Request----
+GPO_GET\r\n
+------Response---------
+GPO=000000001111\r\n
+0-3 bits(GPO12-GPO9) - active
+4-11 bits(GPO8-GPO1) - passive
+
+----Set GPO Request----
+GPI_SET\r\nGPO1=1\r\nGPO2=1\r\nGPO5=1\r\n
+------Response---------
+GPO=110010000000
+
+----PING---------------
+OK\r\n
+1 - time in 3 seconds
